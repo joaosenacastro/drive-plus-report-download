@@ -9,7 +9,7 @@ if __name__ == "__main__":
     params = ci.configuration.parameters
 
     username = params["username"]
-    password = params["password"]
+    password = params["#password"]
 
     logging.info(f"Username: {username}")
 
