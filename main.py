@@ -35,11 +35,12 @@ if __name__ == "__main__":
 
     logging.info("Starting the selenium process to download the report")
 
-    chrome_options = webdriver.ChromeOptions()
-    prefs = {"download.default_directory": "/data/out/tables/"}
-    chrome_options.add_experimental_option("prefs", prefs)
+    # chrome_options = webdriver.ChromeOptions()
+    # prefs = {"download.default_directory": "/data/out/tables/"}
+    # chrome_options.add_experimental_option("prefs", prefs)
 
-    driver = webdriver.Chrome(options=chrome_options)
+    # driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Chrome()
     driver.get(url_to_download)
 
     username_field = driver.find_element(By.XPATH, "//*[@id=\"mainContainer\"]/div/div/div/div/app-login/div[2]/div[3]/div/form/div[1]/input")
