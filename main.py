@@ -2,13 +2,11 @@ from keboola.component import CommonInterface
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-import pandas as pd
 import requests
 import time
 import logging
 import csv
 import os
-import io
 
 
 if __name__ == "__main__":
@@ -55,8 +53,8 @@ if __name__ == "__main__":
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_experimental_option("prefs", prefs)
 
-
     driver = webdriver.Chrome(options=chrome_options)
+
 
     # driver = webdriver.Chrome()
     driver.get(url_to_download)
@@ -73,6 +71,11 @@ if __name__ == "__main__":
 
     time.sleep(60)
 
+    selenium_user_agent = driver.execute_script("return navigator.userAgent;")
+    s = requests.Session()
+    s.headers.update({"user-agent": selenium_user_agent})
+    for cookie in driver.get_cookies():
+        s.cookies.set(cookie['name'], cookie['value'], domain=cookie['domain'])
 
     response = requests.get(url_to_download).content.decode('utf-8')
     # df = pd.read_csv(io.StringIO(response.decode('utf-8')))
@@ -82,12 +85,13 @@ if __name__ == "__main__":
     my_list = list(cr)
     for row in my_list:
         print(row)
-    driver.get("chrome://downloads/")
 
-    print(os.getcwd())
-    os.chdir("/data/out/tables/")
-    print(os.getcwd())
-    print(os.listdir())
+    # driver.get("chrome://downloads/")
+
+    # print(os.getcwd())
+    # os.chdir("/data/out/tables/")
+    # print(os.getcwd())
+    # print(os.listdir())
 
 
 
