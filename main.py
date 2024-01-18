@@ -2,11 +2,13 @@ from keboola.component import CommonInterface
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-# from selenium.webdriver.chrome.options import Options
+import pandas as pd
+import requests
 import time
 import logging
 import csv
 import os
+import io
 
 
 if __name__ == "__main__":
@@ -68,6 +70,9 @@ if __name__ == "__main__":
     password_field.send_keys(password)
     password_field.send_keys(Keys.RETURN)
 
+    response = requests.get(url_to_download).content
+    df = pd.read_csv(io.StringIO(response.decode('utf-8')))
+    df.to_csv(f'/data/out/tables/GlobalReport.csv', encoding='utf-8', index=False)
     time.sleep(60)
     driver.get("chrome://downloads/")
 
