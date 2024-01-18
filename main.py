@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 # from selenium.webdriver.chrome.options import Options
+import time
 import logging
 import csv
 import os
@@ -67,7 +68,7 @@ if __name__ == "__main__":
     password_field.send_keys(password)
     password_field.send_keys(Keys.RETURN)
 
-    driver.implicitly_wait(60)
+    time.sleep(60)
     driver.get("chrome://downloads/")
 
     print(os.getcwd())
