@@ -40,7 +40,15 @@ if __name__ == "__main__":
     # chrome_options.add_experimental_option("prefs", prefs)
 
     # driver = webdriver.Chrome(options=chrome_options)
-    driver = webdriver.Chrome()
+
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--window-size=1920,1080')
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-gpu')
+    driver = webdriver.Chrome(chrome_options=chrome_options)
+
+    # driver = webdriver.Chrome()
     driver.get(url_to_download)
 
     username_field = driver.find_element(By.XPATH, "//*[@id=\"mainContainer\"]/div/div/div/div/app-login/div[2]/div[3]/div/form/div[1]/input")
