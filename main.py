@@ -36,7 +36,12 @@ if __name__ == "__main__":
     logging.info("Starting the selenium process to download the report")
 
     # chrome_options = webdriver.ChromeOptions()
-    prefs = {"download.default_directory": "/data/out/tables/"}
+    # prefs = {"download.default_directory": "/data/out/tables/"}
+
+    prefs = {"profile.default_content_settings.popups": 0,
+             "download.default_directory": r"/data/out/tables/",  ### Set the path accordingly
+             "download.prompt_for_download": False,  ## change the downpath accordingly
+             "download.directory_upgrade": True}
 
     # driver = webdriver.Chrome(options=chrome_options)
 
@@ -46,6 +51,7 @@ if __name__ == "__main__":
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_experimental_option("prefs", prefs)
+
 
     driver = webdriver.Chrome(options=chrome_options)
 
@@ -60,6 +66,9 @@ if __name__ == "__main__":
     password_field.clear()
     password_field.send_keys(password)
     password_field.send_keys(Keys.RETURN)
+
+    driver.implicitly_wait(60)
+    driver.get("chrome://downloads/")
 
     print(os.getcwd())
     os.chdir("/data/out/tables/")
