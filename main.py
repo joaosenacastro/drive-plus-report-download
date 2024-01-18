@@ -70,10 +70,18 @@ if __name__ == "__main__":
     password_field.send_keys(password)
     password_field.send_keys(Keys.RETURN)
 
-    response = requests.get(url_to_download).content
-    df = pd.read_csv(io.StringIO(response.decode('utf-8')))
-    df.to_csv(f'/data/out/tables/GlobalReport.csv', encoding='utf-8', index=False)
+
     time.sleep(60)
+
+
+    response = requests.get(url_to_download).content.decode('utf-8')
+    # df = pd.read_csv(io.StringIO(response.decode('utf-8')))
+    # df.to_csv(f'/data/out/tables/GlobalReport.csv', encoding='utf-8', index=False)
+
+    cr = csv.reader(response.splitlines(), delimiter=',')
+    my_list = list(cr)
+    for row in my_list:
+        print(row)
     driver.get("chrome://downloads/")
 
     print(os.getcwd())
