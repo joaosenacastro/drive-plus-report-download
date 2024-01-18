@@ -36,8 +36,7 @@ if __name__ == "__main__":
     logging.info("Starting the selenium process to download the report")
 
     # chrome_options = webdriver.ChromeOptions()
-    # prefs = {"download.default_directory": "/data/out/tables/"}
-    # chrome_options.add_experimental_option("prefs", prefs)
+    prefs = {"download.default_directory": "/data/out/tables/"}
 
     # driver = webdriver.Chrome(options=chrome_options)
 
@@ -46,6 +45,8 @@ if __name__ == "__main__":
     chrome_options.add_argument('--window-size=1920,1080')
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_experimental_option("prefs", prefs)
+
     driver = webdriver.Chrome(options=chrome_options)
 
     # driver = webdriver.Chrome()
